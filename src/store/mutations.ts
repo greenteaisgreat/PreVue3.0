@@ -132,18 +132,82 @@ const mutations: Mutations<State> = {
     }
     state.componentMap = newObj;
   },
-
+ 
 
   //new
   [types.DELETE_ACTIVE_ELEMENT]: (state: State) => {
-    const { routes, activeElement, activeRoute, componentIndex, elementIndex } = state;
-    
-    const newList = Object.assign({}, routes[activeRoute][componentIndex].htmlList)
-    console.log('compIndex', componentIndex)
-    console.log('elIndex', elementIndex)
-    delete newList[elementIndex]
-    routes[activeRoute][componentIndex].htmlList = newList
+  const { routes, activeElement, activeRoute, componentIndex, elementIndex } = state;
+  
+  const component = routes[activeRoute][componentIndex];
+  const parents = []
 
+  //This pushes all parent elements into an array in descending order, to be referenced later
+  function findActiveElement(arr) {
+    for (const el of arr) {
+      if (el.isActive === true) {
+        return
+      }
+      if (el.children.length > 0) {
+        parents.push(el);
+        findActiveElement(el.children);
+      }
+    }
+  }
+
+  findActiveElement(component.htmlList)
+
+  let newList
+  let elIndex = elementIndex
+
+  //this finds the element we want to delete and returns the updated array that it exists in
+  function deleteElement(list, parentArray){
+    if(parentArray.length){
+      list.forEach((el, i) => {
+        if(el === parentArray[0]){
+          elIndex = i
+          while(parentArray.length){
+            deleteElement(el.children, parentArray.shift())
+          }
+        }
+      })
+    } else {
+      newList = list.slice();
+      newList.splice(elIndex, 1);
+    }
+  };
+
+  const parentsCopy = [...parents]
+  deleteElement(component.htmlList, parents)
+
+
+  if(parentsCopy.length){
+      //This makes newList the children array of the parent of the child element being deleted.
+    function applyNewList(original, modified, parent, index = 0){
+      console.log("PARENT", parent.length)
+      if (index < parent.length - 1){
+        original.forEach(el => {
+          if (el === parent[index]){
+            return applyNewList(el.children, modified, parent, index + 1)
+          }
+        })
+      } else { 
+        console.log("ORIGINAL", original)
+        original.forEach(el => {
+          if (el === parent[index]){
+            el.children = modified
+          }
+        })
+      }
+      return original
+    }
+
+    component.htmlList = applyNewList(component.htmlList, newList, parentsCopy)
+    
+    } 
+    //or it just makes newList the htmlList if no nesting is necessary
+    else { component.htmlList = newList } 
+
+    //It is currently deleting the array one at at time starting with which is first
   },
 
   [types.SET_ACTIVE_ELEMENT]: (state: State, payload) => {

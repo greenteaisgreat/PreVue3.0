@@ -30,7 +30,7 @@
       
     <Vue3DraggableResizable
       class="component-elements"
-      v-for="(element, i) in theHtmlList(index)"
+      v-for="(element, i) in elementsAndChildren(index)"
       :draggable="true"
       :resizable="true"
       :disabledX="false"
@@ -55,7 +55,6 @@
         :alt="div-component" >
         div
       </div>
-
 
       <img v-else 
       :src="`./src/assets/${element.text}.svg`" 
@@ -136,17 +135,35 @@ export default {
       return this.routes[this.activeRoute][index].htmlList;
       }
     },
-
+    elementsAndChildren(){
+    return (index) => {
+      const newArr = [];
+      const list = this.theHtmlList(index);
+      if(!Array.isArray(list)) { 
+        console.log ("ERROR")
+        return newArr
+    }
+      const mapAll = function(arr){
+        arr.forEach(el => {
+           if (Array.isArray(el.children) && el.children.length > 0){
+            mapAll(el.children)
+          }
+          newArr.push(el)
+          })
+        }
+      mapAll(list)
+      return newArr
+      }
+    },
     elementPosition() {
       return (i, index) => { 
-        // console.log("Sdf", this.routes[this.activeRoute][index].htmlList[i])
-        // console.log("X", x)
-         return this.routes[this.activeRoute][index].htmlList[i]
+         return this.elementsAndChildren(index)[i]
       }
     },
     activateElementOn(){
       return(i, index) => {
         //console.log("deactivated", this.elementPosition(i, index).isActive)
+        console.log("ACTIVE ELEMENT", this.elementPosition(i, index))
         this.elementPosition(i, index).isActive = true;
       }
     },
@@ -266,6 +283,7 @@ export default {
 .component-box {
   box-sizing: border-box;
   color: #3ab982;
+  background-color: #e3e3e3;
   border-radius: 25px;
   text-align: center;
   display: flex;
@@ -283,7 +301,8 @@ export default {
   box-sizing: content-box;
   border-radius: 7px;
   margin: 5px;
-  color: #3AB982;
+  color: #84a891;
+  background-color: #ffffff;
   /* border: 2px solid rgb(255, 0, 221); */
   object-fit: cover;
   display: flex;
