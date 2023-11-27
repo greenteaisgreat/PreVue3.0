@@ -11,6 +11,7 @@
       - the subtitle fonts in different sections are different sizes I believe
       - page reload is SUPER choppy, not sure if we can do anything about it
       - from the component tree, if you click the splash page/home icon on the far top left, the word "PreVue" is displaced in the nav bar until you refresh
+      - there are multiple h1s, I know that's a no-no *shrugs*
   toolbar
       - where does the home page link to? do we need it in the nav bar at all?
       - maybe the “team” link should auto-scroll down to the bottom part of the page where contributors are?
@@ -104,7 +105,7 @@
 
 
        <!-- html for the fourth / team contributors panel -->
-      <h2 class="prevue-github-panel">PreVue Contributors</h2>
+      <h1 class="prevue-github-panel">PreVue Contributors</h1>
       <!-- PreVue 3.0 Contributors -->
       <div class="authors">
         <!-- Ilay Eskinazi -->
@@ -569,7 +570,6 @@ video {
 
 .linkedin:hover, .github:hover {
   cursor: pointer;
-   
 }
 
 #see-prevue-button {
@@ -605,11 +605,11 @@ video {
   padding-bottom: 10px;
   font-size: 14px;
 }
-h2.prevue-github-panel {
+h1.prevue-github-panel {
   display: flex;
   justify-content: center;
-  padding-top:40px;
-  padding-bottom: 40px;
+  padding-top:85px;
+  padding-bottom: 30px;
   background: linear-gradient(to left, #39b982, #0e7d78); 
   color : white;
   width: 150%;
