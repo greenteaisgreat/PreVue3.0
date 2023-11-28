@@ -337,7 +337,6 @@ export default {
   z-index: 7;
 }
 .component-elements {
-
   box-sizing: content-box;
   border-radius: 7px;
   margin: 5px;
