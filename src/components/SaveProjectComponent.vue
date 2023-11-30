@@ -41,11 +41,15 @@ export default {
       };
 
       try {
-        const response = await fetch('http://localhost:8080/projects/saveProject', {
+        console.log(import.meta.env.VITE_API_BASE)
+        const response = await fetch(`${import.meta.env.VITE_API_BASE}/projects/saveProject`, {
           method: 'POST',
           credentials: 'include',
           body: JSON.stringify(stateToSave),
-          headers: { 'Content-type': 'application/json; charset=UTF-8' }
+          headers: { 
+            'Content-type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': ['localhost:4173']
+           }
         });
 
         if (!response.ok) {

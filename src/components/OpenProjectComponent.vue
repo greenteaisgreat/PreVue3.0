@@ -51,7 +51,7 @@ export default {
     async selectProject() {
       const selected = this.selected;
       // request to find projects by the logged in user
-      const res = await fetch('http://localhost:8080/projects/getProject', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE}/projects/getProject`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify({ project_name: selected }),
@@ -81,12 +81,9 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
-.open-btn {
-  font-family: 'Nunito', sans-serif;
-}
 
 .white--text {
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .white--text:hover {
