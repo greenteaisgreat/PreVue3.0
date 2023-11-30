@@ -65,6 +65,14 @@ Use PreVue to create projects in single sessions or sign in with GitHub to save 
 
 <img width="1000" src="src/assets/prevue-recording.gif">
 
+
+
+
+https://github.com/oslabs-beta/PreVue3.0/assets/32549947/59ff7231-b0db-4c9b-a2e9-e88528f778ff
+
+
+
+
 ### Editing Components
 
 - Double click elements to bring up the modal view
@@ -83,6 +91,7 @@ Use PreVue to create projects in single sessions or sign in with GitHub to save 
 
 <!-- <img width="1000" src="src/assets/export.gif">
 <img width="1000" src="src/assets/export.png"> -->
+
 
 ### Code Exporting
 
