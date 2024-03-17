@@ -1,10 +1,8 @@
 <template>
   <!--the sandbox area where the component boxes are rendered-->
   <div class="component-display">
-
     <Vue3DraggableResizable
       class="component-box"
-
       v-for="(componentData, index) in activeRouteArray"
       :draggable="isDraggable"
       :resizable="true"
@@ -24,54 +22,54 @@
       @resize-end="onResizeEnd"
       @dblclick.native="onDoubleClick(componentData)"
     >
-    
-    <h3>{{ componentData.componentName}}</h3>
-      
-    <Vue3DraggableResizable
-      v-for="(element, i) in elementsAndChildren(index)"
-      class="component-elements"
-      :class="{
-        'layer1': element.depth === 1,
-        'layer2': element.depth === 2,
-        'layer3': element.depth === 3,
-        'layer4': element.depth === 4,
-        'layer5': element.depth === 5,
-        'layer6': element.depth === 6,
-        'layer7': element.depth === 7
-      }"
-      :draggable="true"
-      :resizable="true"
-      :disabledX="false"
-      :disabledY="false"
-      :key="i + element"
-      :x="elementPosition(i, index).x"
-      :y="elementPosition(i, index).y"
-      :w="elementPosition(i, index).w"
-      :h="elementPosition(i, index).h"
-      @activated="activateElement(i, index); activateElementOn(i, index)"
-      @deactivated="deactivateElement(i, index)"
-      @resize-end="resizeElement($event, i, index)"
-      @drag-start="notDraggable()"
-      @drag-end="$event => {
-      draggableAgain();
-      updatePosition($event, i, index);
-    }"
-  >
-      <div 
-        v-if="element.text === 'div'"
-        class="div"
-        :alt="div-component" >
-        div
-      </div>
+      <h3>{{ componentData.componentName }}</h3>
 
-      <img v-else 
-      :src="`./src/assets/${element.text}.svg`" 
-      class="graphic" 
-      :alt="`${element.text} SVG Image`"
-      />
- 
-    </Vue3DraggableResizable>
+      <Vue3DraggableResizable
+        v-for="(element, i) in elementsAndChildren(index)"
+        class="component-elements"
+        :class="{
+          layer1: element.depth === 1,
+          layer2: element.depth === 2,
+          layer3: element.depth === 3,
+          layer4: element.depth === 4,
+          layer5: element.depth === 5,
+          layer6: element.depth === 6,
+          layer7: element.depth === 7,
+        }"
+        :draggable="true"
+        :resizable="true"
+        :disabledX="false"
+        :disabledY="false"
+        :key="i + element"
+        :x="elementPosition(i, index).x"
+        :y="elementPosition(i, index).y"
+        :w="elementPosition(i, index).w"
+        :h="elementPosition(i, index).h"
+        @activated="
+          activateElement(i, index);
+          activateElementOn(i, index);
+        "
+        @deactivated="deactivateElement(i, index)"
+        @resize-end="resizeElement($event, i, index)"
+        @drag-start="notDraggable()"
+        @drag-end="
+          ($event) => {
+            draggableAgain();
+            updatePosition($event, i, index);
+          }
+        "
+      >
+        <div v-if="element.text === 'div'" class="div" :alt="div - component">
+          div
+        </div>
 
+        <img
+          v-else
+          :src="`../assets/${element.text}.svg`"
+          class="graphic"
+          :alt="`${element.text} SVG Image`"
+        />
+      </Vue3DraggableResizable>
     </Vue3DraggableResizable>
 
     <v-overlay v-model="modalOpen" class="overlay">
@@ -93,50 +91,60 @@ export default {
   name: 'ComponentDisplay',
   components: {
     Vue3DraggableResizable,
-    Modal
+    Modal,
   },
 
   data() {
     return {
       // by default modal associated with active component for further user customization should be hidden
       modalOpen: false,
-      isDraggable: true
+      isDraggable: true,
     };
   },
 
   mounted() {
     // allows active user created component to be deleted when backspace is pressed
-    window.addEventListener('keydown', event => {
-      if (event.key === 'q') { 
-        console.log("Q", this.$store.state.routes[this.activeRoute])
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'q') {
+        console.log('Q', this.$store.state.routes[this.activeRoute]);
       }
-    })
-    window.addEventListener('keyup', event => {
+    });
+    window.addEventListener('keyup', (event) => {
       if (event.key === 'Backspace') {
-        console.log('backspace',this.activeElement && this.activeElement.isActive === true)
-        if (this.activeElement && this.activeElement.isActive === true){ 
-          this.$store.dispatch('saveState')
-          this.$store.dispatch('deleteActiveElement')
-        }
-        else if (this.activeComponent && this.activeComponentData.isActive) {
-          this.$store.dispatch('saveState')
+        console.log(
+          'backspace',
+          this.activeElement && this.activeElement.isActive === true
+        );
+        if (this.activeElement && this.activeElement.isActive === true) {
+          this.$store.dispatch('saveState');
+          this.$store.dispatch('deleteActiveElement');
+        } else if (this.activeComponent && this.activeComponentData.isActive) {
+          this.$store.dispatch('saveState');
           this.$store.dispatch('deleteActiveComponent');
-           }
-          }
-        });
+        }
+      }
+    });
 
-    window.addEventListener('keydown', event => {
+    window.addEventListener('keydown', (event) => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'z') {
-        if(this.$store.state.arrayOfStates.length > 0){
-          console.log("UNDO invoked");
-          this.$store.dispatch('restoreState')
+        if (this.$store.state.arrayOfStates.length > 0) {
+          console.log('UNDO invoked');
+          this.$store.dispatch('restoreState');
         }
       }
     });
   },
 
   computed: {
-    ...mapState(['routes', 'activeRoute', 'activeComponent', 'componentMap', 'activeElement', 'elementIndex', 'componentIndex']),
+    ...mapState([
+      'routes',
+      'activeRoute',
+      'activeComponent',
+      'componentMap',
+      'activeElement',
+      'elementIndex',
+      'componentIndex',
+    ]),
     activeRouteArray() {
       // returns components associated with current active route
       return this.routes[this.activeRoute];
@@ -144,85 +152,94 @@ export default {
 
     activeComponentData() {
       // returns object containing data associated with current active component
-      return this.activeRouteArray.filter(componentData => {
+      return this.activeRouteArray.filter((componentData) => {
         return componentData.componentName === this.activeComponent;
       })[0];
     },
-    theHtmlList(){
-    return (index) => {
-      return this.routes[this.activeRoute][index].htmlList;
-      }
+    theHtmlList() {
+      return (index) => {
+        return this.routes[this.activeRoute][index].htmlList;
+      };
     },
-    elementsAndChildren(){
-    return (index) => {
-      const newArr = [];
-      const list = this.theHtmlList(index);
-      if(!Array.isArray(list)) { 
-        console.log ("ERROR")
-        return newArr
-      }
-      const mapAll = function(arr, currentDepth = 0){
-        arr.forEach(el => {
-          const newDepth = currentDepth + 1
-           if (Array.isArray(el.children) && el.children.length > 0){
-            mapAll(el.children, newDepth)
-          }
-          el.depth = newDepth
-          newArr.push(el)
-          })
+    elementsAndChildren() {
+      return (index) => {
+        const newArr = [];
+        const list = this.theHtmlList(index);
+        if (!Array.isArray(list)) {
+          console.log('ERROR');
+          return newArr;
         }
-      mapAll(list)
-      return newArr
-      }
+        const mapAll = function (arr, currentDepth = 0) {
+          arr.forEach((el) => {
+            const newDepth = currentDepth + 1;
+            if (Array.isArray(el.children) && el.children.length > 0) {
+              mapAll(el.children, newDepth);
+            }
+            el.depth = newDepth;
+            newArr.push(el);
+          });
+        };
+        mapAll(list);
+        return newArr;
+      };
     },
     elementPosition() {
-      return (i, index) => { 
-         return this.elementsAndChildren(index)[i]
-      }
+      return (i, index) => {
+        return this.elementsAndChildren(index)[i];
+      };
     },
-    activateElementOn(){
-      return(i, index) => {
-        console.log("ACTIVE ELEMENT", this.elementPosition(i, index))
+    activateElementOn() {
+      return (i, index) => {
+        console.log('ACTIVE ELEMENT', this.elementPosition(i, index));
         this.elementPosition(i, index).isActive = true;
-      }
+      };
     },
-    deactivateElement(){
-      return(i, index) => {
+    deactivateElement() {
+      return (i, index) => {
         this.elementPosition(i, index).isActive = false;
-      }
+      };
     },
   },
 
   methods: {
-    ...mapActions(['setActiveComponent', 'updateOpenModal', 'setActiveElement', 'setComponentIndex', 'setElementIndex']),
-    activateElement(i, index){
-        this.$store.dispatch('setComponentIndex', index)
+    ...mapActions([
+      'setActiveComponent',
+      'updateOpenModal',
+      'setActiveElement',
+      'setComponentIndex',
+      'setElementIndex',
+    ]),
+    activateElement(i, index) {
+      this.$store
+        .dispatch('setComponentIndex', index)
         .then(() => {
-          return this.$store.dispatch('setElementIndex', i)
+          return this.$store.dispatch('setElementIndex', i);
         })
         .then(() => {
-          return this.$store.dispatch('setActiveElement', this.elementPosition(i ,index))
+          return this.$store.dispatch(
+            'setActiveElement',
+            this.elementPosition(i, index)
+          );
         })
-        .then(() => {
-        })
+        .then(() => {});
     },
 
-    resizeElement: function(x, i, index){
-      this.$store.dispatch('saveState')
-      this.elementPosition(i, index).x = x.x
-      this.elementPosition(i, index).y = x.y
-      this.elementPosition(i, index).w = x.w
-      this.elementPosition(i, index).h = x.h
+    resizeElement: function (x, i, index) {
+      this.$store.dispatch('saveState');
+      this.elementPosition(i, index).x = x.x;
+      this.elementPosition(i, index).y = x.y;
+      this.elementPosition(i, index).w = x.w;
+      this.elementPosition(i, index).h = x.h;
     },
 
-    updatePosition: function(x, i, index){
-      this.$store.dispatch('saveState')
-      this.elementPosition(i, index).x = x.x
-      this.elementPosition(i, index).y = x.y
+    updatePosition: function (x, i, index) {
+      this.$store.dispatch('saveState');
+      this.elementPosition(i, index).x = x.x;
+      this.elementPosition(i, index).y = x.y;
     },
 
-    onResizeEnd: function(x) {
-      this.$store.dispatch('saveState')
+    onResizeEnd: function (x) {
+      this.$store.dispatch('saveState');
 
       // updates state associated with active component to reflect end of resize user has made to the component
       this.activeComponentData.isActive = true;
@@ -232,8 +249,8 @@ export default {
       this.activeComponentData.h = x.h;
     },
 
-    onDragEnd: function(x) {
-      this.$store.dispatch('saveState')
+    onDragEnd: function (x) {
+      this.$store.dispatch('saveState');
       // updates state associated with active component to reflect end of drag user has made to the component
       this.activeComponentData.x = x.x;
       this.activeComponentData.y = x.y;
@@ -241,10 +258,10 @@ export default {
 
     onActivated(componentData) {
       // updates state to reflect current selected componenet (i.e. active component)
-      console.log("activated")
+      console.log('activated');
       this.setActiveComponent(componentData.componentName);
       this.activeComponentData.isActive = true;
-      this.activeElement.isActive = false
+      this.activeElement.isActive = false;
     },
 
     onDeactivated() {
@@ -266,13 +283,13 @@ export default {
     },
 
     notDraggable() {
-      this.isDraggable = false
+      this.isDraggable = false;
     },
 
     draggableAgain() {
-      this.isDraggable = true
-    }
-  }
+      this.isDraggable = true;
+    },
+  },
 };
 </script>
 <style scoped>
@@ -293,7 +310,7 @@ export default {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   box-shadow: 0 0 5px 2px rgba(189, 188, 188, 0.6);
 }
 
