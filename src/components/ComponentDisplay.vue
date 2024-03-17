@@ -34,7 +34,7 @@
           layer4: element.depth === 4,
           layer5: element.depth === 5,
           layer6: element.depth === 6,
-          layer7: element.depth === 7,
+          layer7: element.depth === 7
         }"
         :draggable="true"
         :resizable="true"
@@ -53,7 +53,7 @@
         @resize-end="resizeElement($event, i, index)"
         @drag-start="notDraggable()"
         @drag-end="
-          ($event) => {
+          $event => {
             draggableAgain();
             updatePosition($event, i, index);
           }
@@ -65,7 +65,7 @@
 
         <img
           v-else
-          :src="`../assets/${element.text}.svg`"
+          :src="`./src/assets/${element.text}.svg`"
           class="graphic"
           :alt="`${element.text} SVG Image`"
         />
@@ -91,25 +91,25 @@ export default {
   name: 'ComponentDisplay',
   components: {
     Vue3DraggableResizable,
-    Modal,
+    Modal
   },
 
   data() {
     return {
       // by default modal associated with active component for further user customization should be hidden
       modalOpen: false,
-      isDraggable: true,
+      isDraggable: true
     };
   },
 
   mounted() {
     // allows active user created component to be deleted when backspace is pressed
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', event => {
       if (event.key === 'q') {
         console.log('Q', this.$store.state.routes[this.activeRoute]);
       }
     });
-    window.addEventListener('keyup', (event) => {
+    window.addEventListener('keyup', event => {
       if (event.key === 'Backspace') {
         console.log(
           'backspace',
@@ -125,7 +125,7 @@ export default {
       }
     });
 
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', event => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'z') {
         if (this.$store.state.arrayOfStates.length > 0) {
           console.log('UNDO invoked');
@@ -143,7 +143,7 @@ export default {
       'componentMap',
       'activeElement',
       'elementIndex',
-      'componentIndex',
+      'componentIndex'
     ]),
     activeRouteArray() {
       // returns components associated with current active route
@@ -152,25 +152,25 @@ export default {
 
     activeComponentData() {
       // returns object containing data associated with current active component
-      return this.activeRouteArray.filter((componentData) => {
+      return this.activeRouteArray.filter(componentData => {
         return componentData.componentName === this.activeComponent;
       })[0];
     },
     theHtmlList() {
-      return (index) => {
+      return index => {
         return this.routes[this.activeRoute][index].htmlList;
       };
     },
     elementsAndChildren() {
-      return (index) => {
+      return index => {
         const newArr = [];
         const list = this.theHtmlList(index);
         if (!Array.isArray(list)) {
           console.log('ERROR');
           return newArr;
         }
-        const mapAll = function (arr, currentDepth = 0) {
-          arr.forEach((el) => {
+        const mapAll = function(arr, currentDepth = 0) {
+          arr.forEach(el => {
             const newDepth = currentDepth + 1;
             if (Array.isArray(el.children) && el.children.length > 0) {
               mapAll(el.children, newDepth);
@@ -198,7 +198,7 @@ export default {
       return (i, index) => {
         this.elementPosition(i, index).isActive = false;
       };
-    },
+    }
   },
 
   methods: {
@@ -207,7 +207,7 @@ export default {
       'updateOpenModal',
       'setActiveElement',
       'setComponentIndex',
-      'setElementIndex',
+      'setElementIndex'
     ]),
     activateElement(i, index) {
       this.$store
@@ -224,7 +224,7 @@ export default {
         .then(() => {});
     },
 
-    resizeElement: function (x, i, index) {
+    resizeElement: function(x, i, index) {
       this.$store.dispatch('saveState');
       this.elementPosition(i, index).x = x.x;
       this.elementPosition(i, index).y = x.y;
@@ -232,13 +232,13 @@ export default {
       this.elementPosition(i, index).h = x.h;
     },
 
-    updatePosition: function (x, i, index) {
+    updatePosition: function(x, i, index) {
       this.$store.dispatch('saveState');
       this.elementPosition(i, index).x = x.x;
       this.elementPosition(i, index).y = x.y;
     },
 
-    onResizeEnd: function (x) {
+    onResizeEnd: function(x) {
       this.$store.dispatch('saveState');
 
       // updates state associated with active component to reflect end of resize user has made to the component
@@ -249,7 +249,7 @@ export default {
       this.activeComponentData.h = x.h;
     },
 
-    onDragEnd: function (x) {
+    onDragEnd: function(x) {
       this.$store.dispatch('saveState');
       // updates state associated with active component to reflect end of drag user has made to the component
       this.activeComponentData.x = x.x;
@@ -288,8 +288,8 @@ export default {
 
     draggableAgain() {
       this.isDraggable = true;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
