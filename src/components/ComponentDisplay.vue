@@ -65,7 +65,7 @@
 
         <img
           v-else
-          :src="`./src/assets/${element.text}.svg`"
+          :src="`./src/assets/${element.text}.png`"
           class="graphic"
           :alt="`${element.text} SVG Image`"
         />
