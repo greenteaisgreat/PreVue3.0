@@ -4,9 +4,9 @@
     "remotePatterns": [
       {
         "protocol": "https",
-        "hostname": "example.com",
-        "port": "",
-        "pathname": "/account123/**"
+        "hostname": "prevue3.vercel.app",
+        "port": "8082",
+        "pathname": "/home"
       }
     ],
     "minimumCacheTTL": 60,
