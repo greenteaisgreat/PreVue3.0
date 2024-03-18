@@ -5,8 +5,8 @@
     class="rounded-0"
     :style="{
       'background-color': '#3b444b',
-      
-      padding: '10px 0px 100px 0px',
+
+      padding: '10px 0px 100px 0px'
     }"
   >
     <v-card-title
@@ -97,8 +97,8 @@ export default {
       }
     },
     validateInput() {
-        // ensures component can only be created when user has provided a component name, disables add component button
-        return this.componentNameInputValue.length < 1;
+      // ensures component can only be created when user has provided a component name, disables add component button
+      return this.componentNameInputValue.length < 1;
     }
   },
   methods: {
@@ -117,8 +117,8 @@ export default {
         w: 200,
         h: 200,
         htmlList: this.selectedElementList,
-        children: [],
-        isActive: false
+        children: []
+        // isActive: false
       };
       this.registerComponent(component);
     },
