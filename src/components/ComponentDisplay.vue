@@ -64,62 +64,8 @@
         </div>
 
         <img
-          v-else-if="element.text === 'img'"
-          :src="`./src/assets/img.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'button'"
-          :src="`./src/assets/button.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'form'"
-          :src="`./src/assets/form.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'link'"
-          :src="`./src/assets/link.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'list-item'"
-          :src="`./src/assets/list-item.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'paragraph'"
-          :src="`./src/assets/paragraph.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'list-ol'"
-          :src="`./src/assets/list-ol.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'list-ul'"
-          :src="`./src/assets/list-ul.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'input'"
-          :src="`./src/assets/input.svg`"
-          class="graphic"
-          :alt="`${element.text} SVG Image`"
-        />
-        <img
-          v-else-if="element.text === 'navbar'"
-          :src="`./src/assets/navbar.svg`"
+          v-else
+          :src="`./src/assets/${element.text}.svg`"
           class="graphic"
           :alt="`${element.text} SVG Image`"
         />
