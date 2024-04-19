@@ -1,10 +1,5 @@
 {
   "images": {
-    "sizes": [256, 640, 1080, 2048, 3840],
-    "minimumCacheTTL": 60,
-    "formats": ["image/webp", "image/avif"],
-    "dangerouslyAllowSVG": true,
-    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
-    "contentDispositionType": "inline"
+    "dangerouslyAllowSVG": true
   }
 }
