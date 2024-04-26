@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue';
 const path = require('path');
 export default defineConfig({
   plugins: [vue()],
+  base: '/vite-deploy',
   test: {
     globals: true,
     environment: 'jsdom'
