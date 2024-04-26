@@ -62,16 +62,9 @@
         <div v-if="element.text === 'div'" class="div" :alt="div - component">
           div
         </div>
-
-        <img
-          v-else-if="element.text === 'img'"
-          :src="`../assets/img.svg`"
-          class="graphic"
-          :alt="`img SVG Image`"
-        />
         <img
           v-else
-          :src="`../assets/${element.text}.svg`"
+          :src="`../public/${element.text}.svg`"
           class="graphic"
           :alt="`${element.text} SVG Image`"
         />
