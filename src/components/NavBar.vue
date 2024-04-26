@@ -7,8 +7,8 @@
     role="navigation"
     aria-label="main navigation"
   >
-  <!-- id="navbar" -->
-    <img src="../assets/logo.png" id="prevue-logo" @click="routeHome" />
+    <!-- id="navbar" -->
+    <img src="../public/logo.png" id="prevue-logo" @click="routeHome" />
     <h1 id="prevue">PreVue</h1>
     <div class="buttons">
       <v-btn id="tree-btn" @click="routeTree">
@@ -103,7 +103,7 @@ export default {
 
 #prevue-logo:hover {
   cursor: pointer;
-  transform: scale(0.7) translateY(-10px); 
+  transform: scale(0.7) translateY(-10px);
 }
 
 #tree-btn {
@@ -121,4 +121,3 @@ button:hover {
   color: #00c4a7;
 }
 </style>
-
