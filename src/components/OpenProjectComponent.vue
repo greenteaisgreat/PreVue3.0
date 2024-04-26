@@ -4,19 +4,33 @@
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" class="open-btn" id="button">
         <br />
-        <span class="white--text">Open Project</span></v-btn>
+        <span class="white--text">Open Project</span></v-btn
+      >
     </template>
     <template v-slot:default="{ isActive }">
       <v-card>
-        <v-toolbar id="toolbar" style="{color: white }" color="#39b982" title="Get a project"></v-toolbar>
+        <v-toolbar
+          id="toolbar"
+          :style="{ color: white }"
+          color="#39b982"
+          title="Get a project"
+        ></v-toolbar>
         <v-card-text>
-          <v-form><v-select v-model="selected" :items="projects" label="Select"></v-select></v-form>
+          <v-form
+            ><v-select
+              v-model="selected"
+              :items="projects"
+              label="Select"
+            ></v-select
+          ></v-form>
         </v-card-text>
         <v-card-actions class="justify-end">
-          <button @click="
-            isActive.value = false;
-          selectProject();
-                                                            ">
+          <button
+            @click="
+              isActive.value = false;
+              selectProject();
+            "
+          >
             OPEN
           </button>
           <v-btn variant="text" @click="isActive.value = false">Close</v-btn>

@@ -15,7 +15,7 @@
         <div @click="toDocs">
           <h3 id="prevue-link">Docs</h3>
         </div>
-        <div @click="oauth">
+        <div @click="toHome">
           <h3 id="prevue-link">Sign-In</h3>
         </div>
       </div>

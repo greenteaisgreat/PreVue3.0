@@ -1,7 +1,8 @@
 /// <reference types="vitest" />
+import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import checker from 'vite-plugin-checker';
+
 const path = require('path');
 export default defineConfig({
   plugins: [vue()],
@@ -11,7 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   server: {
