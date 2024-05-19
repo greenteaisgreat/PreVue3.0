@@ -1,7 +1,5 @@
 {
-  "module": {
-    "type": "commonjs"
-  },
+  "module": "commonjs",
   "name": "prevue",
   "author": "teamprevue <prevueoslabs@gmail.com> (www.prevue.io)",
   "version": "3.0.0",
