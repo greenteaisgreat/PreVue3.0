@@ -19,6 +19,7 @@
     "@he-tree/vue": "^2.2.7",
     "@progress/jszip-esm": "^1.0.3",
     "@ssthouse/vue3-tree-chart": "^0.2.6",
+    "@vercel/analytics": "^1.5.0",
     "axios": "^1.3.4",
     "concurrently": "^7.6.0",
     "connect-history-api-fallback": "^2.0.0",
@@ -78,5 +79,8 @@
   "bugs": {
     "url": "https://github.com/oslabs-beta/PreVue/issues"
   },
-  "homepage": "https://github.com/oslabs-beta/PreVue#readme"
+  "homepage": "https://github.com/oslabs-beta/PreVue#readme",
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }
