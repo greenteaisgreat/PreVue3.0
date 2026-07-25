@@ -64,7 +64,7 @@
         </div>
         <img
           v-else
-          :src="`../public/${element.text}.svg`"
+          :src="`/${element.text}.svg`"
           class="graphic"
           :alt="`${element.text} SVG Image`"
         />
@@ -95,7 +95,8 @@ export default {
 
   data() {
     return {
-      // by default modal associated with active component for further user customization should be hidden
+      // by default modal associated with active component
+      // for further user customization should be hidden
       modalOpen: false,
       isDraggable: true
     };
